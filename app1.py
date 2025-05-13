@@ -53,7 +53,7 @@ if st.button('Predict'):
     vector_input = tfidf.transform([transformed_sms])
 
     # Predict
-    result = model.predict(vector_input)[0]
+    result = model.predict(vector_input.toarray())[0]
 
     # Output
     if result == 1:
