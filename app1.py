@@ -4,26 +4,22 @@ import string
 import nltk
 from nltk.corpus import stopwords
 from nltk.stem.porter import PorterStemmer
-from nltk.tokenize import word_tokenize
+from nltk.tokenize import TreebankWordTokenizer
 
 # Download necessary NLTK resources safely
-try:
-    nltk.data.find("tokenizers/punkt")
-except LookupError:
-    nltk.download("punkt")
-
 try:
     nltk.data.find("corpora/stopwords")
 except LookupError:
     nltk.download("stopwords")
 
-# Initialize stemmer
+# Initialize stemmer and tokenizer
 ps = PorterStemmer()
+tokenizer = TreebankWordTokenizer()
 
 # Text preprocessing function
 def transform_text(text):
     text = text.lower()
-    text = word_tokenize(text)  # ✅ Removed language="english" to fix the tokenizer error
+    text = tokenizer.tokenize(text)  # ✅ Using TreebankWordTokenizer to avoid punkt errors
 
     y = []
     for i in text:
